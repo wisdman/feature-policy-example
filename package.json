@@ -16,7 +16,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./content/*.tar.gz",
-    "bandle": "npm run clean && cd dist && tar -zcvf $npm_package_name-$npm_package_version.tar.gz *",
+    "bandle": "npm run clean && cd content && tar -zcvf $npm_package_name-$npm_package_version.tar.gz *",
     "start": "http-server ./content",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
