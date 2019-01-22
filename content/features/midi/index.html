@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy midi Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <main></main>
+  <script type="text/javascript">
+    void async function() {
+      const mainNode = document.querySelector("main")
+      const LOG = (text, type) => mainNode.insertAdjacentHTML("beforeend", `<p class="${type}">${text}</p>`)
+
+      if (ReportingObserver) {
+        new ReportingObserver(reportList => {
+          reportList.forEach(report => console.log(report))
+        }, {"types": ["feature-policy-violation"]}).observe()
+      }
+
+      if (!("requestMIDIAccess" in navigator)) {
+        LOG("Web MIDI API is not supported in your browser")
+        return
+      }
+
+      let access
+
+      try {
+        access = await navigator.requestMIDIAccess()
+      } catch(error) {
+        LOG(`Web MIDI API access rejected<br>${error}`, "error")
+        return
+      }
+
+      const inputs = access.inputs.size
+      const outputs = access.outputs.size
+
+      LOG("Web MIDI API access granted", "success")
+      LOG(`Inputs: ${inputs}<br>Outputs: ${outputs}`)
+    }()
+  </script>
+</body>
+</html>

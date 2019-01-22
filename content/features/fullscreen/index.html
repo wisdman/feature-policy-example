@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy fullscreen Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    main {
+      padding: 8px;
+      border: 2px solid #999;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main><p>Fullscreen content</p></main>
+  <button>Fullscreen request</button>
+  <script type="text/javascript">
+    const mainNode = document.querySelector("main")
+    const LOG = (text, type) => mainNode.insertAdjacentHTML("beforeend", `<p class="${type}">${text}</p>`)
+
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+
+    document.addEventListener("webkitfullscreenerror", (error) => {
+      LOG("Fullscreen request rejected", "error")
+    })
+
+    document.addEventListener("mozfullscreenerror", (error) => {
+      LOG("Fullscreen request rejected", "error")
+    })
+
+    document.querySelector("button").addEventListener("click", () => {
+      if (mainNode.webkitRequestFullscreen) {
+        mainNode.webkitRequestFullscreen()
+        return
+      }
+
+      if (mainNode.mozRequestFullScreen) {
+        mainNode.mozRequestFullScreen()
+        return
+      }
+    })
+  </script>
+</body>
+</html>

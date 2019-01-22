@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    body {
+      padding: 0;
+      background-color: #fbfbfb;
+
+      height: 100vh;
+      min-height: 100vh;
+      width: 100vw;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      align-items: stretch;
+    }
+
+    header,
+    aside {
+      flex: 0 1 auto;
+    }
+
+    .title {
+      color: var(--main-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0 8px;
+    }
+
+    nav button {
+      width: 150px;
+      height: 30px;
+
+      margin: 0 8px 8px 0;
+      font-size: 13px;
+      font-weight: 700;
+      background: none #fff;
+      color: inherit;
+      border: 1px solid #999;
+      border-radius: 3px;
+      user-select: none;
+    }
+
+    nav button[aria-pressed="true"] {
+      background-color: var(--success-color);
+      border-color: var(--success-color);
+      color: #fff;
+    }
+
+    aside {
+      border-top: 1px solid #999;
+      border-bottom: 1px solid #999;
+    }
+
+    form {
+      display: flex;
+      justify-content: flex-start;
+      margin: 8px 16px 0 16px;
+    }
+
+    form:empty {
+      display: none;
+    }
+
+    form label {
+      font-size: 14px;
+      margin: 0 24px 0 4px;
+      user-select: none;
+    }
+
+    .iframe-text {
+      font-weight: 600;
+      text-align: center;
+      margin: 8px;
+    }
+
+    main {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main iframe {
+      flex: 1 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      nav button {
+        margin: 0 8px 8px 8px;
+        width: 130px;
+        height: 25px;
+        font-size: 12px;
+      }
+
+      form {
+        margin: 8px;
+        flex-wrap: wrap;
+      }
+
+      .iframe-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Feature-Policy <span class="title"></span></h1>
+    <nav></nav>
+  </header>
+  <aside>
+    <form class="features"></form>
+    <p class="iframe-text">Please select Feature-Policy</p>
+  </aside>
+  <main></main>
+  <script>
+    const titleNode = document.querySelector(".title")
+    const navNode = document.querySelector("nav")
+    const formNode = document.querySelector("form")
+    const iframeTextNode = document.querySelector(".iframe-text")
+    const mainNode = document.querySelector("main")
+
+    const updateIframe = (page) => {
+      const allow = Array.from(formNode.elements).filter(node => node.checked).map(node => node.dataset.value).join("; ")
+      iframeTextNode.innerText = `<iframe allow="${allow}">`
+      mainNode.innerHTML = `<iframe frameborder="0" src="/features/${page}/index.html?${Math.random().toString(36).substring(2)}" allow="${allow}"></iframe>`
+    }
+
+    void async function(){
+      const response = await fetch("/features/features.json")
+      const data = await response.json()
+
+      for (let [page, buttons] of Object.entries(data)) {
+        const button = document.createElement("button")
+        button.type = "button"
+        button.id = page
+        button.innerHTML = page
+        button.setAttribute("aria-pressed", "false")
+        button.addEventListener("click", () => {
+          titleNode.innerHTML = page
+          document.querySelectorAll("nav button").forEach(btn => btn.setAttribute("aria-pressed", "false"))
+          button.setAttribute("aria-pressed", "true")
+
+          formNode.innerHTML = ""
+
+          for (let [checkbox, value] of Object.entries(buttons)) {
+            const div = document.createElement("div")
+
+            const input = document.createElement("input")
+            input.type = "checkbox"
+            input.id = `checkbox-${checkbox}`
+            input.dataset.value = value
+            input.addEventListener("change", () => updateIframe(page))
+
+            const label = document.createElement("label")
+            label.classList.add("features-label")
+            label.setAttribute("for", input.id)
+            label.innerHTML = value
+
+            div.append(input)
+            div.append(label)
+            formNode.append(div)
+          }
+
+          updateIframe(page)
+          document.location.hash = page
+        })
+        navNode.append(button)
+
+        const goBtn = document.location.hash && document.querySelector(document.location.hash)
+        if (goBtn) { goBtn.click() }
+      }
+    }()
+  </script>
+</body>
+</html>

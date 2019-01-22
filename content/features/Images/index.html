@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy Images Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      align-content: flex-start;
+      justify-content: center;
+    }
+
+    h1 {
+      flex: 0 0 100%;
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 13px;
+    }
+
+    figure {
+      margin: 0 24px 16px 0;
+      padding: 8px 8px 0 8px;
+      border: 1px dotted #333;
+    }
+
+    picture {
+      display: block;
+      width: 178px;
+      height: 100px;
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <figure>
+    <picture>
+      <img src="img/img-min.bmp" height="100">
+    </picture>
+    <figcaption>
+      <p><i>Format:</i> <b>bmp</b></p>
+      <p><i>Image Size:</i> <b>267 x 150</b> px</p>
+      <p><i>Container size:</i> <b>178 x 100</b> px</p>
+      <p><i>File size:</i> <b>160 254</b> bytes</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <picture>
+      <img src="img/img-min.gif" height="100">
+    </picture>
+    <figcaption>
+      <p><i>Format:</i> <b>gif</b></p>
+      <p><i>Image Size:</i> <b>267 x 150</b> px</p>
+      <p><i>Container size:</i> <b>178 x 100</b> px</p>
+      <p><i>File size:</i> <b>29 016</b> bytes</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <picture>
+      <img src="img/img-min.jpg" height="100">
+    </picture>
+    <figcaption>
+      <p><i>Format:</i> <b>jpg</b></p>
+      <p><i>Image Size:</i> <b>267 x 150</b> px</p>
+      <p><i>Container size:</i> <b>178 x 100</b> px</p>
+      <p><i>File size:</i> <b>7 612</b> bytes</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <picture>
+      <img src="img/img-min.png" height="100">
+    </picture>
+    <figcaption>
+      <p><i>Format:</i> <b>png</b></p>
+      <p><i>Image Size:</i> <b>267 x 150</b> px</p>
+      <p><i>Container size:</i> <b>178 x 100</b> px</p>
+      <p><i>File size:</i> <b>68 975</b> bytes</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <picture>
+      <img src="img/img-min.webp" height="100">
+    </picture>
+    <figcaption>
+      <p><i>Format:</i> <b>webp</b></p>
+      <p><i>Image Size:</i> <b>267 x 150</b> px</p>
+      <p><i>Container size:</i> <b>178 x 100</b> px</p>
+      <p><i>File size:</i> <b>6 144</b> bytes</p>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <picture>
+      <img src="img/img-full.jpg" height="100">
+    </picture>
+    <figcaption>
+      <p><i>Format:</i> <b>jpg</b></p>
+      <p><i>Image Size:</i> <b>1280 x 720</b> px</p>
+      <p><i>Container size:</i> <b>178 x 100</b> px</p>
+      <p><i>File size:</i> <b>74 301</b> bytes</p>
+    </figcaption>
+  </figure>
+
+  <script type="text/javascript">
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+  </script>
+</body>
+</html>

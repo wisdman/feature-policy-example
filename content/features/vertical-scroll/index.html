@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy vertical-scroll Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <main id="data">
+    <h2>Then this policy is active, content will not be scrolling vertically</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur iusto, dicta numquam sint blanditiis rem, aliquid quos repellat, quasi laboriosam esse, rerum inventore nisi neque eius facilis. Asperiores eos odit laudantium, quis beatae eaque libero aliquid corrupti quidem tempore consectetur inventore perspiciatis, incidunt laboriosam. At voluptatem ea tenetur, suscipit molestiae.</p>
+    <p>Ducimus repellat odio quam, reiciendis omnis qui! Maxime accusantium saepe, nihil iure. Labore dolore iusto aliquid natus repudiandae unde excepturi quas autem, libero quasi similique nulla eveniet esse voluptatibus nisi. Numquam perspiciatis saepe earum in fugiat facilis cupiditate amet atque optio minus placeat nulla, blanditiis aliquam repudiandae! Officiis, accusantium, excepturi!</p>
+    <p>Quos autem dolorem pariatur culpa eligendi impedit? Ex cumque praesentium tenetur reiciendis, illo autem ipsum. Fugit maxime cupiditate voluptatum doloribus aut, voluptatem, sint nam recusandae repellendus iure. Quia velit quaerat dolorum sit quis quo cumque nostrum adipisci, esse neque optio distinctio nam non rerum ducimus, excepturi voluptates, vel labore ullam.</p>
+    <p>Dolorum alias unde beatae itaque perspiciatis, sunt amet tenetur eligendi excepturi aliquam debitis nostrum, nesciunt ducimus tempore non molestias quasi, modi praesentium consequuntur voluptatibus commodi eveniet laborum error voluptatem. Molestias cumque praesentium saepe non molestiae perferendis odio aperiam, amet mollitia magni, iusto tenetur autem dolor quae culpa sunt, tempore eum.</p>
+    <p>Hic provident accusamus optio quis est dolores voluptatum dolorem debitis placeat praesentium ad perspiciatis vero illo voluptatem, nostrum dolore ipsam nesciunt reprehenderit doloremque harum, fuga atque tempora eligendi ducimus! Iste sapiente, consequuntur nisi dolore tempora, aspernatur maxime a alias ea debitis veritatis quidem, velit et culpa natus obcaecati ipsa at!</p>
+    <p>Incidunt voluptatem labore, quasi, possimus nihil nisi ducimus! Illo libero amet saepe reprehenderit molestias consequatur ipsum expedita, dolores, et illum beatae incidunt unde. Alias maiores dolorem, vel, distinctio libero sunt explicabo error ex delectus et cupiditate! Facere et ex architecto ad, sit soluta autem cupiditate sequi error quidem iste ut.</p>
+    <p>Earum sapiente eos beatae sunt rerum temporibus fuga ipsam numquam sed quidem voluptas assumenda accusamus, exercitationem inventore eaque ad quam nemo sit voluptates iusto omnis, quas. Cumque at voluptatem, neque quos alias debitis molestias commodi repellat odio, explicabo error necessitatibus iste dignissimos itaque quae numquam tenetur sunt ipsa optio qui.</p>
+    <p>Facilis ex itaque laboriosam error! Earum tempore cumque quia, libero placeat dignissimos iste quod minus est nesciunt sed eaque et possimus voluptatibus nostrum. Incidunt vero voluptate laudantium adipisci illo odit labore sunt nam sed dicta nesciunt ab, accusantium veniam ut, eveniet alias officiis consectetur beatae, doloribus obcaecati a possimus! Facilis!</p>
+    <p>Molestias, fugit, sit architecto illum ratione id doloribus praesentium. Saepe iure labore maiores fugiat, neque, inventore rem. Totam aliquam, veniam odit, magni quaerat numquam sit cum dolore eos aperiam provident consectetur laborum dolores recusandae laudantium natus. Sequi animi quaerat placeat magnam, commodi alias iure eveniet molestias pariatur, recusandae, voluptatem quod.</p>
+    <p>Cupiditate itaque velit natus iure, deleniti sapiente odio cum officiis, sint ab nesciunt, doloremque illum? Sunt in reprehenderit quia similique optio dolorem illum debitis doloremque, molestiae provident libero vitae, excepturi, quasi mollitia distinctio incidunt ducimus quisquam nihil ipsa a corrupti iste est ab laudantium? Libero deleniti eveniet recusandae nam, dicta.</p>
+    <p>Ea laboriosam aperiam magni natus error sunt maiores laudantium, aliquid deleniti, quibusdam temporibus. Aliquid velit et modi similique harum sapiente earum assumenda sint, sequi at provident numquam eligendi, cumque animi laudantium quas tempore iusto aliquam nihil ad architecto labore nesciunt distinctio explicabo. Magnam voluptatibus enim provident unde laboriosam expedita qui?</p>
+    <p>Perspiciatis ratione qui nostrum pariatur aut veniam officia quod vitae, odit, repellat repellendus magni sequi nobis laboriosam, incidunt mollitia laudantium sed expedita obcaecati. Minus praesentium facilis odio, labore eveniet quaerat architecto dolore amet, voluptas vero quibusdam fugit perferendis autem officia, porro saepe similique nulla velit possimus? Perspiciatis vero quidem, excepturi!</p>
+    <p>Aspernatur sint modi dicta laboriosam, ducimus, esse dolore amet. Eos veritatis pariatur, omnis sint impedit. Est ex voluptas distinctio aliquid ullam, voluptatem, temporibus similique molestiae iure perspiciatis, sequi, ratione? Sunt nobis quas delectus. Provident ratione pariatur vel doloremque quibusdam commodi corporis iste voluptatum, esse repudiandae dicta dolor voluptatem facere! Qui.</p>
+    <script type="text/javascript">
+      if (ReportingObserver) {
+        new ReportingObserver(reportList => {
+          reportList.forEach(report => console.log(report))
+        }, {"types": ["feature-policy-violation"]}).observe()
+      }
+    </script>
+  </main>
+</body>
+</html>

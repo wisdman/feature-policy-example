@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy picture-in-picture Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    video { margin-left: 0; }
+  </style>
+</head>
+<body>
+  <main></main>
+  <video  src="https://cdn.arnellebalane.com/videos/original-video.mp4" controls autoplay></video>
+  <button>Request Picture In Picture</button>
+  <script type="text/javascript">
+    void async function() {
+      const mainNode = document.querySelector("main")
+      const LOG = (text, type) => mainNode.insertAdjacentHTML("beforeend", `<p class="${type}">${text}</p>`)
+
+      if (ReportingObserver) {
+        new ReportingObserver(reportList => {
+          reportList.forEach(report => console.log(report))
+        }, {"types": ["feature-policy-violation"]}).observe()
+      }
+
+      const video = document.querySelector("video")
+
+      if (!document.pictureInPictureEnabled) {
+        LOG("Picture-in-Picture API is not allow", "error")
+        return
+      }
+
+      document.querySelector("button").addEventListener("click", async () => {
+        try {
+          await video.requestPictureInPicture()
+        } catch(error) {
+          LOG(`Picture-in-Picture request rejected<br>${error}`, "error")
+          return
+        }
+
+        LOG("Picture-in-Picture request granted", "success")
+      })
+    }()
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy unsized-images Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    body {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Feature-Policy unsized-images Demo</h1>
+  <p>Lorem ipsum dolor sit amet, pretium urna faucibus etiam enim sollicitudin, sagittis phasellus nec suspendisse aenean. Orci nec nam ipsum lobortis ipsum, at nunc, semper in suscipit sem et, mauris amet amet accumsan risus quis, urna quam. Lacus mi elit lectus tortor nec enim, sed ornare est praesent est id ut, mi at. </p>
+  <img src="https://picsum.photos/1200/700/" width="100%">
+  <p>Lorem ipsum dolor sit amet, pretium urna faucibus etiam enim sollicitudin, sagittis phasellus nec suspendisse aenean. Orci nec nam ipsum lobortis ipsum, at nunc, semper in suscipit sem et, mauris amet amet accumsan risus quis, urna quam. Lacus mi elit lectus tortor nec enim, sed ornare est praesent est id ut, mi at. Vestibulum varius, diam posuere tristique est adipiscing, proin quam orci, nunc tincidunt purus accumsan erat, nec amet magna donec. Consectetuer vivamus pharetra nulla vivamus, quam sit conubia ligula turpis, condimentum purus mauris felis scelerisque id. Tincidunt nullam tristique mattis sit vivamus viverra, velit orci convallis, suspendisse urna sed.</p>
+  <img src="https://picsum.photos/200/200/" style="margin-left:16px;float:right;width:200px;height:200px;border-radius:50%;">
+  <p>Lorem ipsum dolor sit amet, pretium urna faucibus etiam enim sollicitudin, sagittis phasellus nec suspendisse aenean. Orci nec nam ipsum lobortis ipsum, at nunc, semper in suscipit sem et, mauris amet amet accumsan risus quis, urna quam. Lacus mi elit lectus tortor nec enim, sed ornare est praesent est id ut, mi at. Vestibulum varius, diam posuere tristique est adipiscing, proin quam orci, nunc tincidunt purus accumsan erat, nec amet magna donec. Consectetuer vivamus pharetra nulla vivamus, quam sit conubia ligula turpis, condimentum purus mauris felis scelerisque id. Tincidunt nullam tristique mattis sit vivamus viverra, velit orci convallis, suspendisse urna sed.</p>
+  <img src="https://picsum.photos/400/400/" style="margin-right:16px;float:left;">
+  <h2>Lorem ipsum dolor</h2>
+  <p>Lorem ipsum dolor sit amet, pretium urna faucibus etiam enim sollicitudin, sagittis phasellus nec suspendisse aenean. Orci nec nam ipsum lobortis ipsum, at nunc, semper in suscipit sem et, mauris amet amet accumsan risus quis, urna quam. Lacus mi elit lectus tortor nec enim, sed ornare est praesent est id ut, mi at. Vestibulum varius, diam posuere tristique est adipiscing, proin quam orci, nunc tincidunt purus accumsan erat, nec amet magna donec. Consectetuer vivamus pharetra nulla vivamus, quam sit conubia ligula turpis, condimentum purus mauris felis scelerisque id. Tincidunt nullam tristique mattis sit vivamus viverra, velit orci convallis, suspendisse urna sed.</p>
+  <div style="text-align:center;">
+    <video src="https://cdn.arnellebalane.com/videos/original-video.mp4" controls style="object-fit:contain"></video>
+  </div>
+  <p>Lorem ipsum dolor sit amet, pretium urna faucibus etiam enim sollicitudin, sagittis phasellus nec suspendisse aenean. Orci nec nam ipsum lobortis ipsum, at nunc, semper in suscipit sem et, mauris amet amet accumsan risus quis, urna quam. Lacus mi elit lectus tortor nec enim, sed ornare est praesent est id ut, mi at. Vestibulum varius, diam posuere tristique est adipiscing, proin quam orci, nunc tincidunt purus accumsan erat, nec amet magna donec. Consectetuer vivamus pharetra nulla vivamus, quam sit conubia ligula turpis, condimentum purus mauris felis scelerisque id. Tincidunt nullam tristique mattis sit vivamus viverra, velit orci convallis, suspendisse urna sed.</p>
+  <img src="https://picsum.photos/1200/300/" width="100%" height="300">
+  <p>Lorem ipsum dolor sit amet, pretium urna faucibus etiam enim sollicitudin, sagittis phasellus nec suspendisse aenean. Orci nec nam ipsum lobortis ipsum, at nunc, semper in suscipit sem et, mauris amet amet accumsan risus quis, urna quam. Lacus mi elit lectus tortor nec enim, sed ornare est praesent est id ut, mi at. Vestibulum varius, diam posuere tristique est adipiscing, proin quam orci, nunc tincidunt purus accumsan erat, nec amet magna donec. Consectetuer vivamus pharetra nulla vivamus, quam sit conubia ligula turpis, condimentum purus mauris felis scelerisque id. Tincidunt nullam tristique mattis sit vivamus viverra, velit orci convallis, suspendisse urna sed.</p>
+  <script type="text/javascript">
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+  </script>
+</body>
+</html>

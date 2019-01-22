@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy Sensors Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      align-content: flex-start;
+    }
+
+    sensor-componen,
+    event-componen {
+      margin-right: 16px;
+      margin-bottom: 16px;
+      padding: 8px;
+      border: 1px dotted #333;
+    }
+  </style>
+</head>
+<body>
+  <sensor-componen sensor="AbsoluteOrientationSensor">Absolute Orientation</sensor-componen>
+  <sensor-componen sensor="Accelerometer">Accelerometer</sensor-componen>
+  <sensor-componen sensor="AmbientLightSensor">Ambient Light</sensor-componen>
+  <sensor-componen sensor="GravitySensor">Gravity Sensor</sensor-componen>
+  <sensor-componen sensor="Gyroscope">Gyroscope</sensor-componen>
+  <sensor-componen sensor="LinearAccelerationSensor">Linear Acceleration</sensor-componen>
+  <sensor-componen sensor="Magnetometer">Magnetometer</sensor-componen>
+  <sensor-componen sensor="RelativeOrientationSensor">Relative Orientation</sensor-componen>
+
+  <script type="text/javascript">
+
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+
+    const template =`
+      <style type="text/css">
+        h1 {
+          font-size: 14px;
+          font-weight: 600;
+          text-align: left;
+          margin: 0;
+        }
+
+        div {
+          font-size: 13px;
+        }
+
+        p {
+          font-size: 13px;
+          margin: 8px 0 0 0;
+        }
+
+        .error { color: var(--error-color) }
+        .success { color: var(--success-color) }
+        .not-available { color: #999 }
+      </style>
+      <h1><slot></slot> <span id="status"></span></h1>
+      <div id="data"></div>
+    `
+
+    const SENSORS = [
+      "AbsoluteOrientationSensor",
+      "Accelerometer",
+      "AmbientLightSensor",
+      "GravitySensor",
+      "Gyroscope",
+      "LinearAccelerationSensor",
+      "Magnetometer",
+      "RelativeOrientationSensor",
+    ]
+
+    customElements.define("sensor-componen", class SensorComponent extends HTMLElement {
+      static get observedAttributes() {
+        return ["sensor"]
+      }
+
+      enableSensor(type) {
+        if (!type || !SENSORS.includes(type)) {
+          this.statusNode.classList.add("error")
+          this.statusNode.innerHTML = "[ Incorrect ]"
+          this.dataNode.innerHTML = "Incorrect sensor type"
+          return
+        }
+
+        const Sensor = window[type]
+        if (!Sensor) {
+          this.statusNode.classList.add("not-available")
+          this.statusNode.innerHTML = "[ Not available ]"
+          this.dataNode.innerHTML = ""
+          return
+        }
+
+        let sensor
+
+        try {
+          sensor = new Sensor()
+        } catch(error) {
+          this.statusNode.classList.add("error")
+          this.statusNode.innerHTML = "[ Access rejected ]"
+          this.dataNode.innerHTML = ""
+          return
+        }
+
+        this.statusNode.classList.add("success")
+        this.statusNode.innerHTML = "[ Access granted ]"
+
+        sensor.addEventListener('error', event => {
+          if (event.error.name == "NotReadableError") {
+            this.statusNode.classList.add("not-available")
+            this.statusNode.innerHTML = "[ Not available ]"
+            return
+          }
+
+          this.statusNode.classList.add("error")
+          this.statusNode.innerHTML = "[ Reading error ]"
+          this.dataNode.innerHTML = event.error.message
+        })
+
+        sensor.start()
+      }
+
+      constructor() {
+        super()
+
+        const root = this.attachShadow({ mode: "open" })
+        root.innerHTML = template
+
+        this.dataNode = root.getElementById("data")
+        this.statusNode = root.getElementById("status")
+      }
+
+      attributeChangedCallback(_, __, newValue) {
+        this.enableSensor(newValue)
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "multimedia": {
+    "camera": "camera 'none'",
+    "microphone": "microphone 'none'"
+  },
+  "geolocation": {
+    "geolocation": "geolocation 'none'"
+  },
+  "Sensors": {
+    "accelerometer": "accelerometer 'none'",
+    "ambient-light-sensor": "ambient-light-sensor 'none'",
+    "gyroscope": "gyroscope 'none'",
+    "magnetometer": "magnetometer 'none'"
+  },
+  "midi": {
+    "midi": "midi 'none'"
+  },
+  "payment": {
+    "payment": "payment 'none'"
+  },
+  "usb": {
+    "usb": "usb 'none'"
+  },
+  "vr": {
+    "vr": "vr 'none'"
+  },
+  "encrypted-media": {
+    "encrypted-media": "encrypted-media 'none'"
+  },
+  "fullscreen": {
+    "fullscreen": "fullscreen 'none'"
+  },
+  "picture-in-picture": {
+    "picture-in-picture": "picture-in-picture 'none'"
+  },
+  "vertical-scroll": {
+    "vertical-scroll": "vertical-scroll 'none'"
+  },
+  "layout-animations": {
+    "layout-animations": "layout-animations 'none'"
+  },
+  "Images": {
+    "legacy-image-formats": "legacy-image-formats 'none'",
+    "oversized-images": "oversized-images 'none'",
+    "unoptimized-images": "unoptimized-images 'none'"
+  },
+  "unsized-media": {
+    "unsized-media": "unsized-media 'none'"
+  },
+  "sync-script": {
+    "sync-script": "sync-script 'none'"
+  },
+  "sync-xhr": {
+    "sync-xhr": "sync-xhr 'none'"
+  },
+  "document-domain": {
+    "document-domain": "document-domain 'none'"
+  },
+  "document-write": {
+    "document-write": "document-write 'none'"
+  },
+  "wake-lock": {
+    "wake-lock": "wake-lock 'none'"
+  },
+  "autoplay": {
+    "autoplay": "autoplay 'none'"
+  }
+}

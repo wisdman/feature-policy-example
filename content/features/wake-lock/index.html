@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy wake-lock Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style type="text/css">
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      align-content: flex-start;
+    }
+
+    wake-lock-componen {
+      margin-right: 16px;
+      margin-bottom: 16px;
+      padding: 8px;
+      border: 1px dotted #333;
+    }
+  </style>
+</head>
+<body>
+  <wake-lock-componen type="screen">Screen Wake Lock</wake-lock-componen>
+  <wake-lock-componen type="system">System Wake Lock</wake-lock-componen>
+  <script type="text/javascript">
+
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+
+    const template =`
+      <style type="text/css">
+        :host {
+          padding: 8px;
+        }
+        h1 {
+          font-size: 14px;
+          font-weight: 600;
+          text-align: left;
+          margin: 0;
+        }
+
+        div {
+          font-size: 13px;
+        }
+
+        p {
+          font-size: 13px;
+          margin: 8px 0;
+        }
+
+        .duration:not(:empty)::before {
+          content: "[ "
+        }
+
+        .duration:not(:empty)::after {
+          content: " ]"
+        }
+
+        .error { color: var(--error-color) }
+        .success { color: var(--success-color) }
+        .not-available { color: #999 }
+      </style>
+      <h1><slot></slot> <span id="status"></span></h1>
+      <p id="data"></p>
+      <button>Toggle Lock</button>
+    `
+
+    const LOCKS = ["screen", "system"]
+
+    customElements.define("wake-lock-componen", class SensorComponent extends HTMLElement {
+      static get observedAttributes() {
+        return ["type"]
+      }
+
+      updateData() {
+        if (!this.wakeLock) {
+          this.dataNode.innerHTML = ""
+          return
+        }
+
+        const duration = this.wakeLock.active ? Math.round((Date.now() - this.wakeLockStart) / 1000) : ""
+        this.dataNode.innerHTML =
+          `<p>Wake Lock is ${this.wakeLock.active ? '<span class="success">active</span>' : "not active" } <span class="duration">${duration}</span></p>`
+      }
+
+      async initWakeLock(type) {
+        if (!type || !LOCKS.includes(type)) {
+          this.statusNode.classList.add("error")
+          this.statusNode.innerHTML = "[ Incorrect ]"
+          this.dataNode.innerHTML = "Incorrect WakeLock type"
+          return
+        }
+
+        if (!("getWakeLock" in navigator)) {
+          this.statusNode.classList.add("not-available")
+          this.statusNode.innerHTML = "[ Not available ]"
+          this.dataNode.innerHTML = ""
+          return
+        }
+
+        try {
+          this.wakeLock = await navigator.getWakeLock(type)
+        } catch(error) {
+          this.statusNode.classList.add("error")
+          this.statusNode.innerHTML = "[ Access rejected ]"
+          this.dataNode.innerHTML = ""
+          return
+        }
+
+        this.wakeLock.addEventListener("activechange", () => {
+          this.wakeLockStart = this.wakeLock.active ? Date.now() : 0
+        })
+
+        this.button.disabled = false
+      }
+
+      constructor() {
+        super()
+
+        const root = this.attachShadow({ mode: "open" })
+        root.innerHTML = template
+
+        this.dataNode = root.getElementById("data")
+        this.statusNode = root.getElementById("status")
+
+        this.button = root.querySelector("button")
+        this.button.disabled = true
+
+        this.wakeLock = null
+        this.wakeLockStart = 0
+        this.wakeLockRequest = null
+
+        this.button.addEventListener("click", () => {
+          if (!this.wakeLock) {
+            return
+          }
+
+          if (this.wakeLockRequest) {
+            this.wakeLockRequest.cancel()
+            this.wakeLockRequest = null
+            return
+          }
+          this.wakeLockRequest = this.wakeLock.createRequest()
+        })
+
+
+      }
+
+      connectedCallback() {
+        void function timer(_this) {
+          _this.updateData()
+          window.requestAnimationFrame(() => timer(_this))
+        }(this)
+      }
+
+      attributeChangedCallback(_, __, newValue) {
+        this.initWakeLock(newValue)
+      }
+    })
+  </script>
+</body>
+</html>

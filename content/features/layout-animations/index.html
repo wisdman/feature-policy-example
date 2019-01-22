@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy layout-animations Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <style>
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      align-content: flex-start;
+    }
+
+    h1 {
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
+      margin-top: 0;
+    }
+
+    section {
+      box-sizing: border-box;
+      border: 1px dotted #333;
+      width: 320px;
+      height: 120px;
+      padding: 8px;
+      margin-right: 16px;
+      margin-bottom: 16px;
+    }
+
+    .box {
+      --box-size: 50px;
+      --animation-size: 200px;
+
+      position: relative;
+      left: 0;
+
+      background-color: var(--error-color);
+      width: var(--box-size);
+      height: var(--box-size);
+    }
+
+    .animate {
+      animation-duration: 3s;
+      animation-direction: alternate;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes animate-gpu {
+      from { transform: translateX(0) }
+      to { transform: translateX(var(--animation-size)) }
+    }
+    .animate-gpu {
+      animation-name: animate-gpu;
+    }
+
+    @keyframes animate-css {
+      from { left: 0px }
+      to { left: var(--animation-size) }
+    }
+    .animate-css {
+      animation-name: animate-css;
+    }
+
+    @keyframes animate-css-gpu {
+      from {
+        left: 0;
+        transform: rotateZ(0);
+      }
+      to {
+        left: var(--animation-size);
+        transform: rotateZ(360deg);
+      }
+    }
+    .animate-css-gpu {
+      animation-name: animate-css-gpu;
+    }
+
+    .transition {
+      transition: all .5s ease-in-out;
+    }
+    .transition:hover {
+      width: calc(var(--animation-size) + var(--box-size));
+      background-color: var(--success-color);
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>Keyframe transform</h1>
+    <div class="box animate animate-gpu"></div>
+  </section>
+  <section>
+    <h1>Keyframe animate left</h1>
+    <div class="box animate animate-css"></div>
+  </section>
+  <section>
+    <h1>Keyframe animate left and transform</h1>
+    <div class="box animate animate-css-gpu"></div>
+  </section>
+  <section>
+    <h1>Transition on hover change width</h1>
+    <div class="box transition"></div>
+  </section>
+  <section>
+    <h1>JS animate left</h1>
+    <div class="box animate-js"></div>
+  </section>
+  <script type="text/javascript">
+
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+
+    const boxNode = document.querySelector('.animate-js')
+    let x = 0
+    let d = 1
+    void function animate() {
+      boxNode.style.left = `${x += d}px`
+      if (x >= 200) { d = -1 }
+      else if (x <= 0 ) { d = 1}
+      window.requestAnimationFrame(animate)
+    }()
+  </script>
+</body>
+</html>

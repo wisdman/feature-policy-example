@@ -1,0 +1,23 @@
+{
+  "name": "feature-policy-example",
+  "version": "0.1.0",
+  "description": "Feature-Policy Demo Pages",
+  "author": "Dmitriy Poliakov aka Wisdman <wisdman@ajaw.it> (https://github.com/wisdman)",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wisdman/feature-policy-example.git"
+  },
+  "homepage": "https://github.com/wisdman/feature-policy-example",
+  "bugs": "https://github.com/wisdman/feature-policy-example/issues",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "scripts": {
+    "clean": "rm -rf ./content/*.tar.gz",
+    "bandle": "npm run clean && cd dist && tar -zcvf $npm_package_name-$npm_package_version.tar.gz *",
+    "start": "http-server ./content",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

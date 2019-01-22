@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy midi Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <main></main>
+  <script type="text/javascript">
+    void async function() {
+      const mainNode = document.querySelector("main")
+      const LOG = (text, type) => mainNode.insertAdjacentHTML("beforeend", `<p class="${type}">${text}</p>`)
+
+      if (ReportingObserver) {
+        new ReportingObserver(reportList => {
+          reportList.forEach(report => console.log(report))
+        }, {"types": ["feature-policy-violation"]}).observe()
+      }
+
+      if (!PaymentRequest) {
+        LOG("PaymentRequest is not supported in your browser")
+        return
+      }
+
+      const DETAILS = {
+        total: {
+          label: "Total",
+          amount: {
+            currency: "USD",
+            value: "0.00",
+          },
+        },
+      }
+
+      try {
+        const paymentRequest = new PaymentRequest([{ supportedMethods: "basic-card" }], DETAILS)
+        await paymentRequest.canMakePayment()
+      } catch(error) {
+        LOG(`PaymentRequest access rejected<br>${error}`, "error")
+        return
+      }
+
+      LOG("PaymentRequest access granted", "success")
+    }()
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy sync-script Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <main></main>
+  <script id="script-1">
+    document.currentScript.dataset.done = true;
+  </script>
+  <script id="script-2" src="script-2.js"></script>
+  <script id="script-3" src="script-3.js" defer></script>
+  <script id="script-4" src="script-4.js" async></script>
+  <script id="script-5" type="module" src="script-5.mjs"></script>
+  <script id="script-6" type="module">
+    document.querySelector("#script-6").dataset.done = true;
+  </script>
+
+  <script type="module">
+    void async function() {
+
+      if (ReportingObserver) {
+        new ReportingObserver(reportList => {
+          reportList.forEach(report => console.log(report))
+        }, {"types": ["feature-policy-violation"]}).observe()
+      }
+
+      const SCRIPT_SNIPPETS = {
+        "script-1": "Inline &#60;script&#62;",
+        "script-2": "&#60;script src=\"script-2.js\"&#62;",
+        "script-3": "&#60;script src=\"script-3.js\" defer&#62;",
+        "script-4": "&#60;script src=\"script-4.js\" async&#62;",
+        "script-5": "&#60;script type=\"module\" src=\"script-5.mjs\"&#62;",
+        "script-6": "Inline &#60;script type=\"module\"&#62;",
+        "script-7": "JS injection script-6.js",
+      }
+
+      await new Promise(resolve => {
+        const script = document.createElement("script")
+        script.src = "script-7.js"
+        script.id = "script-7"
+        script.onload = () => resolve()
+        document.body.append(script)
+      })
+
+      const scripts = Array.from(document.querySelectorAll('script[id^="script-"]'))
+
+      document.querySelector("main").innerHTML = Object.entries(SCRIPT_SNIPPETS).map( ([id, snippet]) => {
+        const done = document.getElementById(id).dataset.done
+        return `<p class="${done ? 'success' : 'error'}"><label>${done ? '✔ EXECUTED:' : '✘ BLOCKED:'}</label> ${snippet}<p>`
+      }).join("")
+
+    }()
+  </script>
+</body>
+</html>

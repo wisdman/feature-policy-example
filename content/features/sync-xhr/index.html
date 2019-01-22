@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy sync-xhr Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <main></main>
+  <script type="text/javascript">
+    const mainNode = document.querySelector("main")
+
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+
+    try {
+      const xhr = new XMLHttpRequest()
+      xhr.open("GET", "sync.html", false) // sync
+      xhr.send()
+      mainNode.innerHTML = xhr.response
+    } catch (error) {
+      mainNode.innerHTML = `<p class="error">Sync XHR request rejected<br>${error}</p>`
+    }
+  </script>
+</body>
+</html>

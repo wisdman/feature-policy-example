@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+  <title>Feature-Policy document-domain Demo</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <main></main>
+  <script type="text/javascript">
+    const mainNode = document.querySelector("main")
+    const LOG = (text, type) => mainNode.insertAdjacentHTML("beforeend", `<p class="${type}">${text}</p>`)
+
+    if (ReportingObserver) {
+      new ReportingObserver(reportList => {
+        reportList.forEach(report => console.log(report))
+      }, {"types": ["feature-policy-violation"]}).observe()
+    }
+
+    try {
+      document.domain = document.domain
+      LOG("document.domain acess granted", "success")
+    } catch(error) {
+      LOG(`document.domain change rejected<br>${error}`, "error")
+    }
+  </script>
+</body>
+</html>
