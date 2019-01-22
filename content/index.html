@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
   <title>Feature-Policy Demo</title>
-  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
   <style type="text/css">
     body {
       padding: 0;
@@ -133,11 +133,11 @@
     const updateIframe = (page) => {
       const allow = Array.from(formNode.elements).filter(node => node.checked).map(node => node.dataset.value).join("; ")
       iframeTextNode.innerText = `<iframe allow="${allow}">`
-      mainNode.innerHTML = `<iframe frameborder="0" src="/features/${page}/index.html?${Math.random().toString(36).substring(2)}" allow="${allow}"></iframe>`
+      mainNode.innerHTML = `<iframe frameborder="0" src="features/${page}/index.html?${Math.random().toString(36).substring(2)}" allow="${allow}"></iframe>`
     }
 
     void async function(){
-      const response = await fetch("/features/features.json")
+      const response = await fetch("features/features.json")
       const data = await response.json()
 
       for (let [page, buttons] of Object.entries(data)) {
