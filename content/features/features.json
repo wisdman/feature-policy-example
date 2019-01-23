@@ -1,4 +1,7 @@
 {
+  "autoplay": {
+    "autoplay": "autoplay 'none'"
+  },
   "multimedia": {
     "camera": "camera 'none'",
     "microphone": "microphone 'none'"
@@ -61,8 +64,5 @@
   },
   "wake-lock": {
     "wake-lock": "wake-lock 'none'"
-  },
-  "autoplay": {
-    "autoplay": "autoplay 'none'"
   }
 }
