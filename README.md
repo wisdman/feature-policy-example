@@ -53,9 +53,10 @@ Demo Pages for my YouTube video about Feature-Policy. This video is in Russian, 
 
   * lazyload - Used to enforce lazyloading
   * speaker - Controls access to audio output devices
+
   * document-cookie - Controls access to document.cookie attribute
-  * accessibility-events - Controls access to AOM event listeners
   * font-display - Controls access to font-display attribute in @font-face CSS rule
+  * accessibility-events - Controls access to AOM event listeners
 
 ### Feature Policy Introspection from Jave Scripts
 
@@ -75,19 +76,15 @@ Demo Pages for my YouTube video about Feature-Policy. This video is in Russian, 
 
 #### Sandboxing features
 
-  * allow-downloads
-  * allow-forms - _Allows the resource to submit forms_
-  * allow-modals - _Lets the resource open modal windows_
-  * allow-orientation-lock - _Lets the resource lock the screen orientation_
-  * allow-pointer-lock - _Lets the resource use the Pointer Lock API_
-  * allow-popups - _Allows popups (such as window.open(), target="_blank", or showModalDialog())_
-  * allow-popups-to-escape-sandbox - _Lets the sandboxed document open new windows without those windows inheriting the sandboxing_
-  * allow-presentation - _Lets the resource start a presentation session_
-  * allow-same-origin - _If this token is not used, the resource is treated as being from a special origin that always fails the same-origin policy_
-  * allow-scripts - _Lets the resource run scripts (but not create popup windows)_
-  * allow-storage-access-by-user-activation - _Lets the resource request access to the parent's storage capabilities with the Storage Access API_
-  * allow-top-navigation - _Lets the resource navigate the top-level browsing context_
-  * allow-top-navigation-by-user-activation - _Lets the resource navigate the top-level browsing context, but only if initiated by a user gesture_
+  * forms - _Allows to submit forms_
+  * modals - _Allows open modal windows_
+  * orientation-lock - _Allows lock the screen orientation_
+  * plugins - _Allows browser plugins_
+  * pointer-lock - _Allows use the Pointer Lock API_
+  * popups - _Allows popups (such as window.open(), target="_blank", or showModalDialog())_
+  * presentation - _Allows start a presentation session_
+  * scripts - _Allows run scripts (but not create popup windows if popups is not specified)_
+  * top-navigation - _popups navigate the top-level browsing context_
 
 ### Feedbacks
 
