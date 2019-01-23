@@ -50,13 +50,16 @@ Demo Pages for my YouTube video about Feature-Policy. This video is in Russian, 
   * [vertical-scroll](https://demo.ajaw.it/feature-policy-example/#vertical-scroll)
   * [vr](https://demo.ajaw.it/feature-policy-example/#vr)
   * [wake-lock](https://demo.ajaw.it/feature-policy-example/#wake-lock)
-  * lazyload
-  * speaker
+
+  * lazyload - Used to enforce lazyloading
+  * speaker - Controls access to audio output devices
+  * document-cookie - Controls access to document.cookie attribute
+  * accessibility-events - Controls access to AOM event listeners
+  * font-display - Controls access to font-display attribute in @font-face CSS rule
 
 ### Feature Policy Introspection from Jave Scripts
 
   * [Policy Introspection from Scripts Editor’s Draft](https://w3c.github.io/webappsec-feature-policy/#introspection)
-
 
 ### Feature Policy Reporting
 
@@ -65,7 +68,26 @@ Demo Pages for my YouTube video about Feature-Policy. This video is in Russian, 
 
 ### Sandboxing
 
+  * [W3C HTML5 Spec](https://www.w3.org/TR/2010/WD-html5-20100624/the-iframe-element.html#attr-iframe-sandbox)
+  * [WHATWG HTML living standard](https://html.spec.whatwg.org/multipage/iframe-embed-object.html#attr-iframe-sandbox)
   * [Iframe Sandboxing with Feature Policy](https://github.com/w3c/webappsec-feature-policy/blob/master/sandbox.md)
+  * [Migrating Sandbox attributes to Feature Policy](https://docs.google.com/document/d/1KsCFmugEAZf1LT_C3ZCj8FfkkljZV3D3EoMenX7yQto)
+
+#### Sandboxing features
+
+  * **allow-downloads**
+  * **allow-forms** - Allows the resource to submit forms
+  * **allow-modals** - Lets the resource open modal windows
+  * **allow-orientation-lock** - Lets the resource lock the screen orientation
+  * **allow-pointer-lock** - Lets the resource use the Pointer Lock API
+  * **allow-popups** - Allows popups (such as window.open(), target="_blank", or showModalDialog())
+  * **allow-popups-to-escape-sandbox** - Lets the sandboxed document open new windows without those windows inheriting the sandboxing
+  * **allow-presentation** - Lets the resource start a presentation session
+  * **allow-same-origin** - If this token is not used, the resource is treated as being from a special origin that always fails the same-origin policy
+  * **allow-scripts** - Lets the resource run scripts (but not create popup windows)
+  * **allow-storage-access-by-user-activation** - Lets the resource request access to the parent's storage capabilities with the Storage Access API
+  * **allow-top-navigation** - Lets the resource navigate the top-level browsing context
+  * **allow-top-navigation-by-user-activation** - Lets the resource navigate the top-level browsing context, but only if initiated by a user gesture
 
 ### Feedbacks
 
