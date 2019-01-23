@@ -1,0 +1,42 @@
+.box {
+  left: /*...*/;
+  right: /*...*/;
+  top: /*...*/;
+  bottom: /*...*/;
+
+  width: /*...*/;
+  height: /*...*/;
+}
+
+/* Keyframe transform */
+@keyframes animate-gpu {
+  from { transform: translateX(0) }
+  to { transform: translateX(var(--animation-size)) }
+}
+
+/* Keyframe animate left */
+@keyframes animate-css {
+  from { left: 0px }
+  to { left: var(--animation-size) }
+}
+
+/* Transition on hover change width */
+@keyframes animate-css-gpu {
+  from {
+    left: 0;
+    transform: rotateZ(0);
+  }
+  to {
+    left: var(--animation-size);
+    transform: rotateZ(360deg);
+  }
+}
+
+/* Transition on hover change width */
+.transition {
+  transition: all .5s ease-in-out;
+}
+.transition:hover {
+  width: calc(var(--animation-size) + var(--box-size));
+  background-color: #007143;
+}

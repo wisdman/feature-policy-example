@@ -1,0 +1,31 @@
+
+<video src="movie.mp4" controls autoplay></video>
+
+<audio src="music.mp3" controls autoplay></audio>
+
+<img src="image.gif" alt="...">
+<img src="image.jpg" alt="...">
+<img src="image.png" alt="...">
+<img src="image.svg" alt="...">
+<img src="image.webp" alt="...">
+
+<img src="image.png">
+
+<!-- Feature-Policy: unsized-media 'none' -->
+<img src="image.png" width="300" height="150">
+
+<script id="script-1">/* Source code */</script>
+<script id="script-2" src="script-2.js"></script>
+
+<script id="script-3" src="script-3.js" defer></script>
+<script id="script-4" src="script-4.js" async></script>
+<script id="script-5" type="module" src="script-5.mjs"></script>
+<script id="script-6" type="module">/* Source code */</script>
+
+<script type="module">
+  const script = document.createElement("script")
+  script.src = "script-7.js"
+  script.id = "script-7"
+  script.onload = () => resolve()
+  document.body.append(script)
+</script>
