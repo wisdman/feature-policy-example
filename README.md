@@ -53,7 +53,6 @@ Demo Pages for my YouTube video about Feature-Policy. This video is in Russian, 
 
   * lazyload - Used to enforce lazyloading
   * speaker - Controls access to audio output devices
-
   * document-cookie - Controls access to document.cookie attribute
   * font-display - Controls access to font-display attribute in @font-face CSS rule
   * accessibility-events - Controls access to AOM event listeners

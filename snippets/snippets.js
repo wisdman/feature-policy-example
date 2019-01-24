@@ -168,3 +168,47 @@ document.write('<p class="success">document.write successful</p>')
 navigator.getWakeLock(/* type */)
 
 
+
+const policy = document.featurePolicy
+
+policy.allowsFeature("usb")
+
+policy.allowsFeature("usb", "https://example.com")
+
+policy.getAllowlistForFeature("payment")
+
+policy.allowedFeatures()
+
+
+
+Report-To: {
+  "max_age": 86400,
+  "endpoints": [{
+    "url": "https://reportingapi.io/api"
+  }]
+}
+
+
+{
+ "type": "feature-policy-violation",
+ "url": "https://demo.ajaw.it/feature-policy-example/",
+ "age": 60000,
+ "user_agent": "Mozilla/1.22 (compatible; MSIE 2.0; Windows 95)",
+ "body": {
+    "featureId": "geolocation",
+    "message": "Geolocation access has been blocked.",
+    "source_file": "https://demo.ajaw.it/feature-policy-example/index.html",
+    "line_number": 20,
+    "column_number": 37,
+    "disposition": "enforce"
+  }
+}
+
+
+const observer new ReportingObserver(reportList => {
+  reportList.forEach(report => {
+    console.log(report)
+  })
+}, {"types": ["feature-policy-violation"]})
+
+observer.observe()
