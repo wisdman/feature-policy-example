@@ -5,7 +5,7 @@
 
 ## Video about Feature-Policy
 
-Demo Pages for my YouTube video about Feature-Policy. This video is in Russian, as my English is not enough to speak fluently.
+Demo Pages for my [YouTube video about Feature-Policy](https://youtu.be/2cms8PgrCQ4). This video is in Russian, as my English is not enough to speak fluently.
 
 ### Demo
 
